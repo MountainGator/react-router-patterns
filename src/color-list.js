@@ -8,12 +8,12 @@ import Home from './home';
 const ColorList = () => {    
     let myUuid = () => ( uuid() );
     const [formData, setFormData] = useState({backgroundColor: '#ffffff'});
-    const [colorPicker, setColorPicker] = 
-        useState(JSON.parse(localStorage.getItem('colors')) || 
+    const [colorPicker, setColorPicker] = useState(
+        JSON.parse(localStorage.getItem('colors')) || 
         [
-        {backgroundColor: 'red'}, 
-        {backgroundColor: 'green'}, 
-        {backgroundColor: 'blue'}
+            {backgroundColor: 'red'}, 
+            {backgroundColor: 'green'}, 
+            {backgroundColor: 'blue'}
         ]
     );
 
@@ -27,7 +27,7 @@ const ColorList = () => {
     }
 
     const pathPicker = (c) => {
-        let route = c.backgroundColor.slice(0,1) == '#' ? `/${c.backgroundColor.slice(1)}` : `/${c.backgroundColor}`;
+        let route = c.backgroundColor.slice(0,1) === '#' ? `/${c.backgroundColor.slice(1)}` : `/${c.backgroundColor}`;
         return route;
     }
 
