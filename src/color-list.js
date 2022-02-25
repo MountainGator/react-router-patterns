@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import Color from './color';
 import Colors from './colors.js';
@@ -36,7 +36,7 @@ const ColorList = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Home colorPicker={colorPicker} />} />
+                <Route path="/" element={<Home colorPicker={colorPicker} pathPicker={pathPicker} />} />
                 <Route key={myUuid()} path="/colors" element={<Colors formData={formData} setFormData={setFormData} handleSubmit={handleSubmit} />} />
                 {
                 colorPicker.map(c => 
@@ -46,6 +46,10 @@ const ColorList = () => {
                         element={<Color info={c} />} 
                     />)
                 }
+                <Route
+                    path="*"
+                    element={<Navigate to="/" />}
+                />
             </Routes>
         </BrowserRouter>
     );

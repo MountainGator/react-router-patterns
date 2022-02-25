@@ -2,7 +2,7 @@ import ColorSwatch from './color-swatch';
 import { v4 as uuid } from 'uuid';
 import { Link } from 'react-router-dom';
 
-const Home = ({colorPicker}) => {
+const Home = ({colorPicker, pathPicker }) => {
     return (
         <>   
             <div className='top'>
@@ -13,7 +13,7 @@ const Home = ({colorPicker}) => {
             {colorPicker.map(c => 
                 <Link 
                 key={uuid()} 
-                to={`/${c.backgroundColor}`}
+                to={pathPicker(c)}
                 >
                     <ColorSwatch style={c} info={c.backgroundColor} />
                 </Link>)
