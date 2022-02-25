@@ -18,7 +18,6 @@ const Colors = ({ formData, setFormData, handleSubmit }) => {
                 value={formData.backgroundColor} 
                 onChange={handleChange} 
             />
-            {/* <button type='submit'>Add Color</button> */}
             <button onClick={() => navigate(-1)}>Add Color!</button>
         </form>
     )

@@ -1,17 +1,15 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Color from './color';
 import Colors from './colors.js';
 import { v4 as uuid } from 'uuid';
 import Home from './home';
 
 const ColorList = () => {    
-    let myUuid = () => (
-        uuid()
-    );
+    let myUuid = () => ( uuid() );
     const [formData, setFormData] = useState({backgroundColor: '#ffffff'});
     const [colorPicker, setColorPicker] = 
-        useState(
+        useState(JSON.parse(localStorage.getItem('colors')) || 
         [
         {backgroundColor: 'red'}, 
         {backgroundColor: 'green'}, 
@@ -33,11 +31,29 @@ const ColorList = () => {
         return route;
     }
 
+    useEffect (() => (
+        localStorage.setItem('colors', JSON.stringify(colorPicker))
+    ), [colorPicker]);
+
     return (
         <BrowserRouter>
+
             <Routes>
+
                 <Route path="/" element={<Home colorPicker={colorPicker} pathPicker={pathPicker} />} />
-                <Route key={myUuid()} path="/colors" element={<Colors formData={formData} setFormData={setFormData} handleSubmit={handleSubmit} />} />
+
+                <Route 
+                    key={myUuid()} 
+                    path="/colors" 
+                    element={
+                        <Colors 
+                        formData={formData} 
+                        setFormData={setFormData} 
+                        handleSubmit={handleSubmit} 
+                        />
+                    } 
+                />
+
                 {
                 colorPicker.map(c => 
                     <Route 
@@ -46,11 +62,14 @@ const ColorList = () => {
                         element={<Color info={c} />} 
                     />)
                 }
+
                 <Route
                     path="*"
                     element={<Navigate to="/" />}
                 />
+
             </Routes>
+
         </BrowserRouter>
     );
 }
